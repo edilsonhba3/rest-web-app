@@ -1,0 +1,66 @@
+
+<div class="container">
+  <h1>Messages </h1>
+
+  <div class="form-inline mb-2 mr-2" width="60%">
+    <input [(ngModel)]="msgSelected.message" 
+            type="text"  class="form-control">
+    <button (click)="add()" class="btn btn-success">Agregar</button>
+  </div>
+
+  <div *ngIf="empty == true" class="alert alert-warning mt-3" role="alert">
+      Ingrese un menaje.
+      <button (click)="changeEmpty()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+
+  <div *ngIf="undefined === messages">Loading...</div>
+  <div *ngIf="undefined !== messages">
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>mensaje</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let msg of messages">
+          <td>{{msg.id}}</td>
+          <td>{{msg.message}}</td>
+          <td>
+            <button  (click)="find(msg)" class="btn btn-primary">Editar</button>
+            <button (click)="delete(msg)" class="btn btn-danger" 
+                    data-toggle="modal" data-target="#deleteModal">Borrar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+</div> 
+
+<div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrando Mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Borrar ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="deleteYes()" type="button" class="btn btn-primary"
+                data-toggle="modal" data-target="#deleteModal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
