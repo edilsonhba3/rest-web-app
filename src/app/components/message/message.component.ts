@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../model/message';
 import { MessageService } from '../../service/message.service';
-import { getAllDebugNodes } from '@angular/core/src/debug/debug_node';
-
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css']
 })
-
 export class MessageComponent implements OnInit
 {
-
-  empty : boolean = false;
   messages : Message[];
+  
   msgSelected : Message = {
     id : null,
-    message : null
+    message : ""
   }
 
   msgDelete : Message = {
@@ -25,13 +22,15 @@ export class MessageComponent implements OnInit
     message : null
   }
 
+  frmAdd: FormGroup;
+
   constructor(private messageService : MessageService) 
   {
     this.getAll();
   }
 
-  ngOnInit() {}
-  
+  ngOnInit() { }
+
   getAll()
   {
     this.messageService
@@ -66,18 +65,8 @@ export class MessageComponent implements OnInit
     this.msgDelete = msg;
   }
 
-  changeEmpty()
-  {
-    this.empty = false;
-  }
-
   add()
-  {
-    if(this.msgSelected.message == null || this.msgSelected.message =="")
-    {
-        this.empty = true;
-        return;
-    }
+  {    
     if(this.msgSelected.id == null)
     {
       this.messageService
@@ -108,6 +97,6 @@ export class MessageComponent implements OnInit
   cleanMsg()
   {
     this.msgSelected.id = null;
-    this.msgSelected.message = null;
-  }
+    this.msgSelected.message = "";
+  }  
 }
